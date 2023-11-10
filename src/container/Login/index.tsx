@@ -19,8 +19,8 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './index.modules.less';
 import { LOGIN, SENDCODEMESSAGE } from '../../graphql/auth';
+import styles from './index.module.less';
 
 type LoginType = 'phone' | 'account';
 
@@ -50,18 +50,18 @@ const Login = () => {
       variables: values,
     });
     console.log('res', res);
-    if (res.data.login) {
-      message.success('登录成功');
-    } else {
-      message.error('登录失败');
+    if (res.data.login.code === 200) {
+      message.success(res.data.login.message);
+      return;
     }
+    message.error(res.data.login.message);
   };
 
   return (
     <ProConfigProvider hashed={false}>
       <div
         style={{ backgroundColor: token.colorBgContainer }}
-        className="custom-header"
+        className={styles.container}
       >
         <LoginForm
           logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
@@ -135,10 +135,12 @@ const Login = () => {
                       tel,
                     },
                   });
-                  if (res && res.data.sendCodeMessage) {
+                  if (res && res.data.sendCodeMessage.code === 200) {
                     message.success('获取验证码成功！');
                   } else {
-                    message.error('获取验证码失败');
+                    message.error(
+                      '获取验证码失败' + res.data.sendCodeMessage.message
+                    );
                   }
                 }}
               />

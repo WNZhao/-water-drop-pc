@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg';
 
 import Login from './container/Login/index';
 
-import './App.css';
+import './App.less';
 
 function App() {
   const [count, setCount] = useState(0);
