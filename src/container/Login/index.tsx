@@ -24,6 +24,7 @@ import styles from './index.module.less';
 import { AUTH_TOKEN } from '@/utils/constants';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTitle } from '@/hooks';
+import { useUserContenxt } from '@/hooks/userHooks';
 
 type LoginType = 'phone' | 'account';
 
@@ -39,6 +40,7 @@ const Login = () => {
 
   const [run] = useMutation(SENDCODEMESSAGE);
   const [login] = useMutation(LOGIN);
+  const { store } = useUserContenxt();
   const nav = useNavigate();
   const [params] = useSearchParams();
 
@@ -51,6 +53,7 @@ const Login = () => {
     });
     console.log('res', res);
     if (res.data.login.code === 200) {
+      store.refetchHandler();
       message.success(res.data.login.message);
       if (values.autoLogin) {
         localStorage.setItem(AUTH_TOKEN, '');
@@ -98,7 +101,6 @@ const Login = () => {
             <>
               <ProFormText
                 fieldProps={{
-                  defaultValue: '13269437038',
                   size: 'large',
                   prefix: <MobileOutlined className={'prefixIcon'} />,
                 }}

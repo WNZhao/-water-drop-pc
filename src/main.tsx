@@ -2,11 +2,13 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './utils/apollo';
-// import App from './App.tsx';
 import './index.less';
-import { ROUTE_CONFIG } from './routes/index.ts';
-import Page404 from './container/Page404/index.tsx';
-import UserInfo from './components/Userinfo';
+import { ROUTE_CONFIG } from '@/routes/index.tsx';
+import UserInfo from '@/components/Userinfo';
+import Layout from '@/components/Layout/index.tsx';
+import Login from '@/container/Login/index.tsx';
+
+Login;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
@@ -14,11 +16,19 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <UserInfo>
         <Routes>
-          {ROUTE_CONFIG.map((item) => (
-            <Route path={item.path} element={<item.element />} key={item.key} />
-          ))}
+          <Route path="/login" element={<Login />} />
+          // 嵌套的路由
+          <Route path="/" element={<Layout />}>
+            {ROUTE_CONFIG.map((item) => (
+              <Route
+                path={item.path}
+                element={<item.element />}
+                key={item.key}
+              />
+            ))}
+          </Route>
           {/* 兜底 */}
-          <Route path="*" element={<Page404 />} />
+          {/* <Route path="*" element={<Page404 />} /> */}
         </Routes>
       </UserInfo>
     </BrowserRouter>
