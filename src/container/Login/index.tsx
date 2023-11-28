@@ -19,14 +19,18 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { LOGIN, SENDCODEMESSAGE } from '../../graphql/auth';
+import { LOGIN, SENDCODEMESSAGE } from '@/graphql/auth';
 import styles from './index.module.less';
+import { AUTH_TOKEN } from '@/utils/constants';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTitle } from '@/hooks';
 
 type LoginType = 'phone' | 'account';
 
-interface TValue {
+interface IValue {
   tel: string;
   code: string;
+  autoLogin: boolean;
 }
 
 const Login = () => {
@@ -35,23 +39,27 @@ const Login = () => {
 
   const [run] = useMutation(SENDCODEMESSAGE);
   const [login] = useMutation(LOGIN);
+  const nav = useNavigate();
+  const [params] = useSearchParams();
 
-  {
-    /*  const iconStyles: CSSProperties = {
-    marginInlineStart: '16px',
-    color: setAlpha(token.colorTextBase, 0.2),
-    fontSize: '24px',
-    verticalAlign: 'middle',
-    cursor: 'pointer',
-  };*/
-  }
-  const loginHandler = async (values: TValue) => {
+  useTitle('登录');
+
+  // 登录
+  const loginHandler = async (values: IValue) => {
     const res = await login({
       variables: values,
     });
     console.log('res', res);
     if (res.data.login.code === 200) {
       message.success(res.data.login.message);
+      if (values.autoLogin) {
+        localStorage.setItem(AUTH_TOKEN, '');
+        localStorage.setItem(AUTH_TOKEN, res.data.login.data);
+      } else {
+        sessionStorage.setItem(AUTH_TOKEN, '');
+        sessionStorage.setItem(AUTH_TOKEN, res.data.login.data);
+      }
+      nav(params.get('origUrl') || '/');
       return;
     }
     message.error(res.data.login.message);
@@ -81,14 +89,16 @@ const Login = () => {
             centered
             activeKey={loginType}
             onChange={(activeKey) => setLoginType(activeKey as LoginType)}
+            items={[{ key: 'phone', label: '手机号登录' }]}
           >
-            <Tabs.TabPane key={'phone'} tab={'手机号登录'} />
+            {/* <Tabs.TabPane key={'phone'} tab={'手机号登录'} /> */}
           </Tabs>
 
           {loginType === 'phone' && (
             <>
               <ProFormText
                 fieldProps={{
+                  defaultValue: '13269437038',
                   size: 'large',
                   prefix: <MobileOutlined className={'prefixIcon'} />,
                 }}
