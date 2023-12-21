@@ -3,12 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './utils/apollo';
 import './index.less';
-import { ROUTE_CONFIG } from '@/routes/index.tsx';
+import { routes } from '@/routes/menu';
 import UserInfo from '@/components/Userinfo';
 import Layout from '@/components/Layout/index.tsx';
 import Login from '@/container/Login/index.tsx';
-
-Login;
+import { ROUTE_COMPONENT } from './routes';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
@@ -19,13 +18,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/login" element={<Login />} />
           // 嵌套的路由
           <Route path="/" element={<Layout />}>
-            {ROUTE_CONFIG.map((item) => (
-              <Route
-                path={item.path}
-                element={<item.element />}
-                key={item.key}
-              />
-            ))}
+            {routes.map((item) => {
+              const Component = ROUTE_COMPONENT[item.key];
+              return (
+                <Route
+                  path={item.path}
+                  key={item.path}
+                  element={<Component />}
+                />
+              );
+            })}
           </Route>
           {/* 兜底 */}
           {/* <Route path="*" element={<Page404 />} /> */}

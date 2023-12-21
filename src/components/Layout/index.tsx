@@ -7,7 +7,7 @@ import { Link, useNavigate, useOutlet } from 'react-router-dom';
 
 import style from './index.module.less';
 import { useUserContenxt } from '@/hooks/userHooks';
-import { ROUTE_CONFIG } from '@/routes';
+import { routes } from '@/routes/menu';
 import { AUTH_TOKEN } from '@/utils/constants';
 
 const menuItemRender = (item: MenuDataItem, dom: React.ReactNode) => (
@@ -15,7 +15,7 @@ const menuItemRender = (item: MenuDataItem, dom: React.ReactNode) => (
 );
 
 /**
- *
+ * 外层框架
  */
 const Layout = () => {
   // 路由插槽
@@ -29,23 +29,23 @@ const Layout = () => {
   };
   return (
     <ProLayout
-      siderWidth={150}
+      siderWidth={160}
       className={style.container}
       avatarProps={{
-        src: 'https://github.githubassets.com/images/modules/logos_page/Octocat.png',
+        src: 'https://water-drop4zwn.oss-cn-beijing.aliyuncs.com/images/%E5%B0%8F%E9%B9%85.svg',
         title: store.tel,
         size: 'small',
         onClick: logout,
       }}
       logo={
-        <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" />
+        <img src="https://water-drop4zwn.oss-cn-beijing.aliyuncs.com/images/cicd.svg" />
       }
-      onMenuHeaderClick={() => nav('/home')}
+      onMenuHeaderClick={() => nav('/')}
       title={false}
       layout="mix"
       route={{
-        path: '/',
-        routes: ROUTE_CONFIG,
+        path: '/home',
+        routes: routes,
       }}
       menuItemRender={menuItemRender}
     >
