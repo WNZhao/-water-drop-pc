@@ -8,4 +8,5 @@ export interface IUser {
   name: string,
   desc: string,
   account: string
+  avatar: string
 }

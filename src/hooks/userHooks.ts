@@ -18,11 +18,11 @@ export const useGetUser = () => {
   const { loading, refetch } = useQuery<{ getUserInfo: IUser }>(GET_USER, {
     onCompleted: (data) => {
       if (data.getUserInfo) {
-        const { id, name, tel } = data.getUserInfo;
-        setStore({ id, name, tel });
+        const { id, name, tel, desc, avatar } = data.getUserInfo;
+        setStore({ id, name, tel, desc, avatar, refetchHandler: refetch });
         // 登录成功的话
         if (location.pathname.startsWith('/login')) {
-          nav(`/home`);
+          nav(`/`);
         }
         return;
       }

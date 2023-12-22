@@ -12,7 +12,7 @@ export const useTitle = (title: string) => {
 export const useGoto = () => {
   const nav = useNavigate()
 
-  const back = nav(-1);
+  const back = () => nav(-1);
   const go = (pageKey: string, params?: Record<string, string>) => {
     if (!pageKey) {
       nav('/')
