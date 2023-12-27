@@ -2,8 +2,8 @@ import type { UploadProps } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { Upload } from 'antd';
 import type { UploadFile } from 'antd/es/upload/interface';
-import { useQuery } from '@apollo/client';
-import { GET_OSS_INFO } from '@/graphql/oss';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_OSS_INFO, OSS_DEL } from '@/graphql/oss';
 
 interface OSSDataType {
   dir: string;
@@ -66,6 +66,21 @@ const OSSImageUpload = ({
     return file;
   };
 
+  const [run, { loading: delLoading }] = useMutation(OSS_DEL);
+
+  const handleRemove: UploadProps['onRemove'] = async (file) => {
+    console.log('file', file);
+    console.log('delLoading-begin', delLoading);
+    const suffix = file.name.slice(file.name.lastIndexOf('.'));
+    const res = await run({
+      variables: {
+        fileName: `${OSSData?.dir}${file.uid}${suffix}`,
+      },
+    });
+    console.log('delLoading-end', delLoading);
+    console.log('res', res);
+  };
+
   return (
     <ImgCrop rotationSlider aspect={imgCropAspect}>
       <Upload
@@ -77,6 +92,7 @@ const OSSImageUpload = ({
         onChange={handleChange}
         data={getExtraData}
         beforeUpload={beforeUpload}
+        onRemove={handleRemove}
       >
         {label}
       </Upload>

@@ -12,3 +12,9 @@ export const GET_OSS_INFO = gql`
     }
   }
 `;
+
+export const OSS_DEL = gql`
+  mutation deleteOSSFile($fileName: String!){
+    deleteOSSFile(fileName:$fileName)
+  }
+`

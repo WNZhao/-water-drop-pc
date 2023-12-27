@@ -1,4 +1,8 @@
-import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  ApartmentOutlined,
+  HomeOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
 /**
  * 解决循环依赖问题
@@ -15,6 +19,7 @@ interface IRoute {
 export const ROUTE_KEY = {
   HOME: 'home',
   MY: 'my',
+  ORG: 'org',
   PAGE_404: '404',
 };
 
@@ -29,6 +34,11 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
     name: '个人信息',
     hideInMenu: true,
     icon: <UserOutlined />,
+  },
+  [ROUTE_KEY.ORG]: {
+    path: 'org',
+    name: '门店管理',
+    icon: <ApartmentOutlined />,
   },
   [ROUTE_KEY.PAGE_404]: {
     path: '*',
