@@ -102,7 +102,7 @@ const EditOrg = ({ id, onClose }: IProp) => {
             <Form.Item
               style={{ width: '100%' }}
               label="名称"
-              name="name"
+              name="orgName"
               rules={[{ required: true }]}
             >
               <Input placeholder="请输入门店名称" />

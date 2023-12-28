@@ -2,14 +2,14 @@ import { PageContainer, ProList } from '@ant-design/pro-components';
 import { useState } from 'react';
 import { Button, Popconfirm, Tag } from 'antd';
 import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
-import { useOrgnizations } from '@/services/org';
+import { useDeleteOrg, useOrgnizations } from '@/services/org';
 import EditOrg from './components';
 
 import style from './index.module.less';
 
 const OrgPage = () => {
   const { loading, data, page, refetch } = useOrgnizations();
-  // const [delHandler, delLoading] = useDeleteOrg();
+  const [delHandler] = useDeleteOrg();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showEdit, setShowEdit] = useState(false);
@@ -23,7 +23,7 @@ const OrgPage = () => {
 
   const delInfoHandler = async (id: string) => {
     console.log('id', id);
-    // delHandler(id, refetch);
+    delHandler(id, refetch);
   };
 
   const addInfoHandler = () => {
@@ -44,10 +44,11 @@ const OrgPage = () => {
       },
     });
   };
-
+  const defaultLogo = 'https://image.joyjs.cn/images/defaultShopInfoIcon.png';
   const dataSource = data?.map((item) => ({
     ...item,
     key: item.id,
+    logo: item.logo ? item.logo : defaultLogo,
     subTitle: (
       <div>
         {item.tags?.split(',').map((tag) => (
@@ -66,7 +67,7 @@ const OrgPage = () => {
         okButtonProps={{
           loading: false,
         }}
-        description={`确定要删除 ${item.name} 吗？`}
+        description={`确定要删除 ${item.orgName} 吗？`}
         onConfirm={() => delInfoHandler(item.id)}
       >
         <Button type="link">删除</Button>

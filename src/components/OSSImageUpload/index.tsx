@@ -69,8 +69,10 @@ const OSSImageUpload = ({
   const [run, { loading: delLoading }] = useMutation(OSS_DEL);
 
   const handleRemove: UploadProps['onRemove'] = async (file) => {
-    console.log('file', file);
-    console.log('delLoading-begin', delLoading);
+    if (!file.name && file.url) {
+      file.name = file.url.slice(file.url.lastIndexOf('/') + 1);
+    }
+    console.log('file.name', file.name);
     const suffix = file.name.slice(file.name.lastIndexOf('.'));
     const res = await run({
       variables: {

@@ -31,7 +31,7 @@ export interface IOrganization {
   orgFrontImg?: IMedia[];
   orgRoomImg?: IMedia[];
   orgOtherImg?: IMedia[];
-  name: string;
+  orgName: string;
   logo: string;
   tags?: string;
   description?: string;

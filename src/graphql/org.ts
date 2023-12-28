@@ -6,7 +6,8 @@ query getOrgnazitions($page: PageInput!){
     code
     message
     data {
-       orgName
+      id
+      orgName
       logo
       address
       tel
@@ -36,38 +37,46 @@ query getOrgnazitions($page: PageInput!){
 `
 
 export const GET_ORG_DETAIL = gql`
-query getOrgnizeInfo($id:String!) {
-  getOrgnizeInfo(id:$id){
-    code
-    message
-    data {
-      orgName
-      logo
-      address
-      tel
-      orgFrontImg {
-        id,
-        url,
-        remark
-      }
-      orgRoomImg {
+  query getOrgnizeInfo($id:String!) {
+    getOrgnizeInfo(id:$id){
+      code
+      message
+      data {
         id
-        url
-        remark
-      }
-      orgOtherImg {
-        id
-        url
-        remark
+        orgName
+        logo
+        address
+        tel
+        businessLicense
+        identityCardFrontImg
+        identityCardBackImg
+        latitude
+      longitude
+      tags
+      description
+        orgFrontImg {
+          id,
+          url,
+          remark
+        }
+        orgRoomImg {
+          id
+          url
+          remark
+        }
+        orgOtherImg {
+          id
+          url
+          remark
+        }
       }
     }
   }
-}
 `
 
 export const COMMIT_ORG = gql`
-  mutation commitOrganization($params: OrganizationInput!, $id: String) {
-    commitOrganization(params: $params, id: $id) {
+  mutation commitOrgnization($params:OrgnizationInput!,$id:String){
+    commitOrgnizationInfo(params:$params,id:$id){
       code
       message
     }

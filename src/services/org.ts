@@ -39,14 +39,14 @@ export const useOrgnization = (id: string) => {
 export const useEditInfo = (): [handleEdit: Function, loading: boolean] => {
   const [edit, { loading }] = useMutation(COMMIT_ORG);
 
-  const handleEdit = async (id: number, params: TBaseOrganization) => {
+  const handleEdit = async (id: string, params: TBaseOrganization) => {
     const res = await edit({
       variables: {
         id,
         params,
       },
     });
-    message.info(res.data.commitOrganization.message);
+    message.info(res.data.commitOrgnizationInfo.message);
   };
 
   return [handleEdit, loading];
