@@ -1,11 +1,12 @@
-import { COMMIT_ORG, DEL_ORG, GET_ORGS, GET_ORG_DETAIL } from "@/graphql/org"
+import { COMMIT_ORG, DEL_ORG, GET_ORGS, GET_ORG_DETAIL, GET_SIMPLE_ORGS } from "@/graphql/org"
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants"
 import { TBaseOrganization, TOrgQuery, TOrgsQuery } from "@/utils/types"
 import { useMutation, useQuery } from "@apollo/client"
 import { message } from 'antd';
 
-export const useOrgnizations = (pageNum = 1, pageSize = DEFAULT_PAGE_SIZE) => {
-  const { loading, data, refetch } = useQuery<TOrgsQuery>(GET_ORGS, {
+
+export const useOrgnizations = (pageNum = 1, pageSize = DEFAULT_PAGE_SIZE, isSimple = false) => {
+  const { loading, data, refetch } = useQuery<TOrgsQuery>(isSimple ? GET_SIMPLE_ORGS : GET_ORGS, {
     variables: {
       page: {
         pageNum,

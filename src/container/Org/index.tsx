@@ -1,6 +1,6 @@
 import { PageContainer, ProList } from '@ant-design/pro-components';
 import { useState } from 'react';
-import { Button, Popconfirm, Tag } from 'antd';
+import { Avatar, Button, Popconfirm, Tag } from 'antd';
 import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
 import { useDeleteOrg, useOrgnizations } from '@/services/org';
 import EditOrg from './components';
@@ -106,7 +106,9 @@ const OrgPage = () => {
             subTitle: {},
             type: {},
             avatar: {
-              dataIndex: 'logo',
+              render: (_, record) => (
+                <Avatar src={record.logo} size={64} /> // Set the size property to adjust the avatar size
+              ),
             },
             content: {
               dataIndex: 'address',

@@ -36,6 +36,24 @@ query getOrgnazitions($page: PageInput!){
 }
 `
 
+export const GET_SIMPLE_ORGS = gql`
+  query getOrgnazitions($page: PageInput!,$name:String){
+    getOrgnazitions(page:$page,name:$name){
+      code
+      message
+      data {
+        id
+        orgName
+      }
+      page {
+        total
+        pageNum
+        pageSize
+      }
+    }
+  }
+`
+
 export const GET_ORG_DETAIL = gql`
   query getOrgnizeInfo($id:String!) {
     getOrgnizeInfo(id:$id){

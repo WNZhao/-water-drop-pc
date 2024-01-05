@@ -7,8 +7,10 @@ export interface IUser {
   tel: string,
   name: string,
   desc: string,
-  account: string
-  avatar: string
+  account: string,
+  avatar: string,
+  currentOrg?: string,
+  refetchHandler?: () => void
 }
 
 export interface IPage {

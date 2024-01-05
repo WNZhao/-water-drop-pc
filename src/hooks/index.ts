@@ -15,7 +15,8 @@ export const useGoto = () => {
   const back = () => nav(-1);
   const go = (pageKey: string, params?: Record<string, string>) => {
     if (!pageKey) {
-      nav('/')
+      // console.log('pageKey', pageKey);
+      nav('/home')
       return
     }
     const route = getRouteByKey(pageKey)

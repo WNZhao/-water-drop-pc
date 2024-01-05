@@ -19,7 +19,7 @@ const Home = () => {
   const { go } = useGoto();
   return (
     <div className={style.container}>
-      {store.tel}home
+      {store.currentOrg}home
       <Button onClick={() => go(ROUTE_KEY.MY)}>去个人中心</Button>
     </div>
   );

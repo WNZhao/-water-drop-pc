@@ -5,9 +5,10 @@ import style from './index.module.less';
 import { useUserContenxt } from '@/hooks/userHooks';
 import { ROUTE_KEY, routes } from '@/routes/menu';
 import { AUTH_TOKEN } from '@/utils/constants';
-import { Space } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { Space, Tooltip } from 'antd';
+import { LogoutOutlined, ShopOutlined } from '@ant-design/icons';
 import { useGoto } from '@/hooks';
+import OrgSelect from '../OrgSelect';
 
 const menuItemRender = (item: MenuDataItem, dom: React.ReactNode) => (
   <Link to={item.path || '/'}>{dom}</Link>
@@ -28,6 +29,10 @@ const Layout = () => {
     localStorage.removeItem(AUTH_TOKEN);
     sessionStorage.removeItem(AUTH_TOKEN);
     nav('/login');
+  };
+
+  const goOrg = () => {
+    go(ROUTE_KEY.ORG);
   };
 
   return (
@@ -55,6 +60,12 @@ const Layout = () => {
         routes: routes,
       }}
       menuItemRender={menuItemRender}
+      actionsRender={() => [
+        <OrgSelect />,
+        <Tooltip title="门店管理">
+          <ShopOutlined onClick={goOrg} />
+        </Tooltip>,
+      ]}
     >
       {outlet}
     </ProLayout>
