@@ -24,18 +24,16 @@ export const useCourses = (pageNum = 1, pageSize = DEFAULT_PAGE_SIZE) => {
 
     if (res.error) {
       return {
-        success: false
+        success: false,
+        data: [],
+        total: 0,
       }
     }
 
     return {
-      page: {
-        pageNum: res.data?.getCourses.page.pageNum,
-        pageSize: res.data?.getCourses.page.pageSize,
-        total: res.data?.getCourses.page.total
-      },
       data: res.data?.getCourses.data,
-      success: true
+      success: true,
+      total: res.data?.getCourses.page.total
     }
   }
   return {
