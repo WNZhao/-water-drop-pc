@@ -1,30 +1,28 @@
 import { gql } from "@apollo/client";
 
 export const GET_ORGS = gql`
-query getOrgnazitions($page: PageInput!){
-  getOrgnazitions(page:$page){
+query getOrgnizations($page: PageInput!,$name:String){
+  getOrgnizations(page:$page,name:$name){
     code
     message
     data {
       id
       orgName
-      logo
-      address
-      tel
+      description,
+      latitude,
+      identityCardBackImg,
+      identityCardFrontImg,
       orgFrontImg {
-        id,
-        url,
-        remark
+        id
+        url
       }
       orgRoomImg {
         id
         url
-        remark
       }
       orgOtherImg {
         id
         url
-        remark
       }
     }
     page {
@@ -37,8 +35,8 @@ query getOrgnazitions($page: PageInput!){
 `
 
 export const GET_SIMPLE_ORGS = gql`
-  query getOrgnazitions($page: PageInput!,$name:String){
-    getOrgnazitions(page:$page,name:$name){
+  query getOrgnizations($page: PageInput!,$name:String){
+    getOrgnizations(page:$page,name:$name){
       code
       message
       data {

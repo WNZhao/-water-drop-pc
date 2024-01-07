@@ -51,3 +51,18 @@ export type TBaseOrganization = Partial<IOrganization>;
 export type TOrgsQuery = { [key: string]: { __typename?: 'Query', data: IOrganization[], page: IPage } };
 
 export type TOrgQuery = { [key: string]: { __typename?: 'Query', data: IOrganization } };
+
+export interface ICourse {
+  name: string; // 课程名称
+  desc?: string; //课程描述
+  group?: string; //适龄人群
+  baseAbility?: string; //适合基础
+  limitNumber?: number; //限制上课人数
+  duration?: number; //持续时间
+  reserveInfo?: string; //预约信息
+  refundInfo?: string; //退款信息
+  otherInfo?: string; //其它说明信息
+}
+
+export type TCoursesQuery = { [key: string]: { __typename?: 'Query', data: ICourse[], page: IPage } };
+export type TCourseQuery = { [key: string]: { __typename?: 'Query', data: ICourse } };

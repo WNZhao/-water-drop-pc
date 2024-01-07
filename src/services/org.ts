@@ -16,8 +16,8 @@ export const useOrgnizations = (pageNum = 1, pageSize = DEFAULT_PAGE_SIZE, isSim
   })
   return {
     loading,
-    page: data?.getOrgnazitions.page,
-    data: data?.getOrgnazitions.data,
+    page: data?.getOrgnizations.page,
+    data: data?.getOrgnizations.data,
     refetch
 
   }
