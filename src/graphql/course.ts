@@ -25,3 +25,39 @@ query getCourses($page: PageInput!,$name: String) {
   }
 }
 `
+
+export const COMMIT_COURSE = gql`
+  mutation commitCourseInfo($params: CourseInput!,$courseId: String) {
+    commitCourseInfo(params:$params,courseId:$courseId){
+      code
+      message
+    }
+  }
+`
+
+export const GET_COURSE_DETAIL = gql`
+  query getCourseInfo($id: String!){
+    getCourseInfo(id:$id){
+      code
+      message
+      data {
+        id
+        createdAt
+        createdBy
+        updatedAt
+        updatedBy
+        deletedAt
+        deletedBy
+        name
+        desc
+        group
+        baseAbility
+        limitNumber
+        duration
+        reserveInfo
+        refundInfo
+        otherInfo
+      }
+    }
+  }
+`
