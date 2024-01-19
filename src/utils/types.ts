@@ -52,7 +52,20 @@ export type TOrgsQuery = { [key: string]: { __typename?: 'Query', data: IOrganiz
 
 export type TOrgQuery = { [key: string]: { __typename?: 'Query', data: IOrganization } };
 
+export interface OrderTimeType {
+  startTime: string;
+  endTime: string;
+  key: number;
+}
+
+export interface ReducibleTimeType {
+  week: string;
+  orderTime: OrderTimeType[];
+}
+
+
 export interface ICourse {
+  orderTime(arg0: string, orderTime: any): unknown;
   id?: string; // 课程id
   name: string; // 课程名称
   desc?: string; //课程描述
@@ -63,6 +76,7 @@ export interface ICourse {
   reserveInfo?: string; //预约信息
   refundInfo?: string; //退款信息
   otherInfo?: string; //其它说明信息
+  reducibleTime?: ReducibleTimeType[]; //其它说明信息
 }
 
 export type TBaseCourse = Partial<ICourse>;

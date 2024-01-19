@@ -15,7 +15,7 @@ import UploadImage from '@/components/OSSImageUpload';
 import { useMemo } from 'react';
 import { IOrganization } from '@/utils/types';
 import style from './index.module.less';
-import { useOrgnization, useEditInfo } from '@/services/org';
+import { useOrgnization, useOrgEditInfo } from '@/services/org';
 
 interface IProp {
   id: string;
@@ -28,7 +28,7 @@ const EditOrg = ({ id, onClose }: IProp) => {
   const [form] = Form.useForm();
 
   const { data, loading: queryLoading } = useOrgnization(id);
-  const [edit, editLoading] = useEditInfo();
+  const [edit, editLoading] = useOrgEditInfo();
 
   const onFinishHandler = async () => {
     const values = await form.validateFields();

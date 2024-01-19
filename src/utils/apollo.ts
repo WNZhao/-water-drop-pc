@@ -23,6 +23,6 @@ export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   // uri: 'http://localhost:3000/graphql',
   // uri: 'http://localhost:8888/graphql',
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ addTypename: false }), // 不在返回的数据中加入__typename
   defaultOptions: { watchQuery: { fetchPolicy: 'cache-and-network' } },
 });

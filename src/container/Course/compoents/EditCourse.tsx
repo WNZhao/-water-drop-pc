@@ -1,4 +1,4 @@
-import { useCourse, useEditInfo } from '@/services/course';
+import { useCourse, useCourseEditInfo } from '@/services/course';
 import {
   Col,
   Drawer,
@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from 'react';
 
 interface IProps {
-  open: boolean;
+  open?: boolean;
   onClose: (isReload?: boolean) => void;
   id?: string;
 }
@@ -31,10 +31,10 @@ const { TextArea } = Input;
   refundInfo?: string; //退款信息
   otherInfo?: string; //其它说明信息
  */
-const EditCourse = ({ open, onClose, id }: IProps) => {
+const EditCourse = ({ onClose, id }: IProps) => {
   const [form] = Form.useForm();
 
-  const [handleEdit] = useEditInfo();
+  const [handleEdit] = useCourseEditInfo();
 
   const { refetch: refetchCourse } = useCourse();
 
@@ -47,7 +47,7 @@ const EditCourse = ({ open, onClose, id }: IProps) => {
       });
     }
   }, [id]);
-
+  // 提交表单
   const onSubmitHandler = async () => {
     const values = await form.validateFields();
     console.log('formValid', values);
@@ -63,7 +63,7 @@ const EditCourse = ({ open, onClose, id }: IProps) => {
 
   return (
     <Drawer
-      open={open}
+      open
       onClose={() => onClose()}
       width={750}
       title={id ? '编辑课程' : '新建课程'}

@@ -27,7 +27,7 @@ query getCourses($page: PageInput!,$name: String) {
 `
 
 export const COMMIT_COURSE = gql`
-  mutation commitCourseInfo($params: CourseInput!,$courseId: String) {
+  mutation commitCourseInfo($params: PartialCourseInput!,$courseId: String) {
     commitCourseInfo(params:$params,courseId:$courseId){
       code
       message
@@ -57,6 +57,14 @@ export const GET_COURSE_DETAIL = gql`
         reserveInfo
         refundInfo
         otherInfo
+        reducibleTime {
+          week
+          orderTime {
+            key
+            startTime
+            endTime
+          }
+        }
       }
     }
   }

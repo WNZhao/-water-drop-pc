@@ -46,7 +46,7 @@ export const useCourses = (pageNum = 1, pageSize = DEFAULT_PAGE_SIZE) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const useEditInfo = (): [handleEdit: Function, loading: boolean] => {
+export const useCourseEditInfo = (): [handleEdit: Function, loading: boolean] => {
   const [edit, { loading }] = useMutation(COMMIT_COURSE);
 
   const handleEdit = async (courseId: string, params: TBaseCourse, callback = () => { }) => {
