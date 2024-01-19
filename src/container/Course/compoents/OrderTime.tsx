@@ -1,19 +1,13 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState } from 'react';
 
 import style from './order-time.module.less';
 import { Button, Col, Drawer, Row, Space, Tabs } from 'antd';
-import {
-  DAYS,
-  IDay,
-  IOrderTime,
-  getOrderTimeColumns,
-  isWorkDay,
-} from '../constants';
+import { DAYS, IDay, getOrderTimeColumns, isWorkDay } from '../constants';
 import { EditableProTable } from '@ant-design/pro-components';
 import { ChromeFilled, RedoOutlined } from '@ant-design/icons';
-import { useCourse, useCourseEditInfo } from '@/services/course';
-import { OrderTimeType, ReducibleTimeType } from '@/utils/types';
+import { OrderTimeType } from '@/utils/types';
 import _ from 'lodash';
+import { useOrderTime } from './hooks';
 
 interface IProps {
   open?: boolean;
@@ -26,81 +20,19 @@ interface IProps {
  */
 const OrderTime = ({ onClose, id }: IProps) => {
   const [currentDay, setCurrentDay] = useState<IDay>(DAYS[0]); // 当前选中的日期
-  const [reducibleTime, setReducibleTime] = useState<ReducibleTimeType[]>([]); // 当前选中的日期的可约时间段
-  const { refetch: refetchCourse, loading } = useCourse();
-
-  const [handleCourseEdit, editLoading] = useCourseEditInfo();
-
-  const init = async () => {
-    if (id) {
-      const res = await refetchCourse({ id });
-      console.log('res', res.data.getCourseInfo.data?.reducibleTime);
-      setReducibleTime(res.data.getCourseInfo.data?.reducibleTime || []);
-    }
-  };
-
-  useEffect(() => {
-    init();
-  }, [id]);
-
   const onTabChangeHandler = (key: string) => {
     const current = DAYS.find((item) => item.key === key);
     setCurrentDay(current || DAYS[0]);
   };
 
-  const onDeleteHandler = (key: number) => {
-    const newData = orderTime.filter((item) => item.key !== key);
-    onSaveHandler(newData);
-  };
-
-  const orderTime = useMemo(() => {
-    // console.log('reducibleTime', reducibleTime);
-    return (
-      (reducibleTime.find((item) => item.week === currentDay.key)
-        ?.orderTime as OrderTimeType[]) || []
-    );
-  }, [reducibleTime, currentDay]);
-
-  const onSaveHandler = (ot: IOrderTime[]) => {
-    const rt = [...reducibleTime];
-    const index = rt.findIndex((item) => item.week === currentDay.key);
-    if (index > -1) {
-      rt[index] = {
-        week: currentDay.key,
-        orderTime: ot,
-      };
-    } else {
-      rt.push({
-        week: currentDay.key,
-        orderTime: ot,
-      });
-    }
-    handleCourseEdit(id, { reducibleTime: rt }, () => init());
-  };
-
-  const allWeekSyncHandler = () => {
-    const rt: ReducibleTimeType[] = [];
-    DAYS.forEach((item) => {
-      rt.push({
-        week: item.key,
-        orderTime: orderTime,
-      });
-    });
-    handleCourseEdit(id, { reducibleTime: rt }, () => init());
-  };
-
-  const allWorkDaySyncHandler = () => {
-    const rt: ReducibleTimeType[] = [];
-    DAYS.forEach((item) => {
-      if (isWorkDay(item.key)) {
-        rt.push({
-          week: item.key,
-          orderTime: orderTime,
-        });
-      }
-    });
-    handleCourseEdit(id, { reducibleTime: rt }, () => init());
-  };
+  const {
+    loading,
+    orderTime,
+    onDeleteHandler,
+    onSaveHandler,
+    allWeekSyncHandler,
+    allWorkDaySyncHandler,
+  } = useOrderTime(id, currentDay.key);
 
   return (
     <Drawer
@@ -128,7 +60,7 @@ const OrderTime = ({ onClose, id }: IProps) => {
             的课开放预约的时间
           </Space>
         }
-        loading={loading || editLoading}
+        loading={loading}
         value={orderTime}
         recordCreatorProps={{
           record: () => {

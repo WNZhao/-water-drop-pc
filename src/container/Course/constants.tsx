@@ -66,7 +66,7 @@ export function getColumns({
 }
 
 // export const COLUMNS: ProColumns<ICourse, 'text'>[] = [];
-type TWeek =
+export type TWeek =
   | 'monday'
   | 'tuesday'
   | 'wednesday'
