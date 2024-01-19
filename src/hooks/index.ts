@@ -1,4 +1,4 @@
-import { getRouteByKey, routes } from "@/routes/menu";
+import { ROUTE_CONFIG, ROUTE_KEY, getRouteByKey, routes } from "@/routes/menu";
 import { useEffect, useMemo } from "react"
 import { matchPath, useLocation, useNavigate } from "react-router-dom";
 
@@ -44,7 +44,18 @@ export const useGoto = () => {
 // 根据url获取页面信息
 export const useMatchedRoute = () => {
   const r = useLocation()
-  const route = useMemo(() => routes.find((item) => matchPath(item.path, r.pathname)), [r.pathname])
+  console.log('routes', routes);
+  const route = useMemo(() => routes.find((item) => matchPath(`/${item.path}`, r.pathname)), [r.pathname])
 
   return route
+}
+
+// 是否是org router
+export const useIsOrgRoute = () => {
+  const curRoute = useMatchedRoute()
+  console.log('curRoute', curRoute);
+  if (curRoute?.path === ROUTE_CONFIG[ROUTE_KEY.ORG].path) {
+    return true
+  }
+  return false
 }

@@ -7,7 +7,7 @@ import { ROUTE_KEY, routes } from '@/routes/menu';
 import { AUTH_TOKEN } from '@/utils/constants';
 import { Space, Tooltip } from 'antd';
 import { LogoutOutlined, ShopOutlined } from '@ant-design/icons';
-import { useGoto } from '@/hooks';
+import { useGoto, useIsOrgRoute } from '@/hooks';
 import OrgSelect from '../OrgSelect';
 
 const menuItemRender = (item: MenuDataItem, dom: React.ReactNode) => (
@@ -24,7 +24,7 @@ const Layout = () => {
   const nav = useNavigate();
   // const { go } = useGoto();
   const { go } = useGoto();
-  nav;
+
   const logout = () => {
     localStorage.removeItem(AUTH_TOKEN);
     sessionStorage.removeItem(AUTH_TOKEN);
@@ -34,6 +34,8 @@ const Layout = () => {
   const goOrg = () => {
     go(ROUTE_KEY.ORG);
   };
+
+  const isOrg = useIsOrgRoute();
 
   return (
     <ProLayout
@@ -61,13 +63,13 @@ const Layout = () => {
       }}
       menuItemRender={menuItemRender}
       actionsRender={() => [
-        <OrgSelect />,
+        !isOrg ? <OrgSelect /> : undefined,
         <Tooltip title="门店管理">
           <ShopOutlined onClick={goOrg} />
         </Tooltip>,
       ]}
     >
-      {outlet}
+      <div key={store.currentOrg}>{outlet}</div>
     </ProLayout>
   );
 };

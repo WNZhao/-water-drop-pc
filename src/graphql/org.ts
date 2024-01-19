@@ -8,8 +8,10 @@ query getOrgnizations($page: PageInput!,$name:String){
     data {
       id
       orgName
+      logo
       description,
       latitude,
+      longitude
       identityCardBackImg,
       identityCardFrontImg,
       orgFrontImg {
@@ -107,3 +109,6 @@ export const DEL_ORG = gql`
     }
   }
 `;
+
+
+

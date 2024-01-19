@@ -7,14 +7,7 @@ import { useEffect } from 'react';
 import { useGoto } from '@/hooks';
 import { ROUTE_KEY } from '@/routes/menu';
 import { useLocation } from 'react-router-dom';
-
-const currentOrg = () => {
-  try {
-    return JSON.parse(localStorage.getItem(LOCAL_CURRENT_ORG) || '');
-  } catch (error) {
-    return undefined;
-  }
-};
+import { currentOrg } from '@/utils';
 
 /**
  * 门店选择器

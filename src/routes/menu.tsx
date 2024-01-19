@@ -23,7 +23,7 @@ export const ROUTE_KEY = {
   ORG: 'org',
   NO_ORG: 'noOrg',
   COURSE: 'course',
-  PAGE_404: '404',
+  PAGE_404: 'p404',
 };
 
 export const ROUTE_CONFIG: Record<string, IRoute> = {
@@ -56,7 +56,7 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
   },
   [ROUTE_KEY.PAGE_404]: {
     path: '*',
-    name: '404',
+    name: 'p404',
     hideInMenu: true,
   },
 };
