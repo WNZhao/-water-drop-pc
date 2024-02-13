@@ -65,7 +65,6 @@ export interface ReducibleTimeType {
 
 
 export interface ICourse {
-  orderTime(arg0: string, orderTime: any): unknown;
   id?: string; // 课程id
   name: string; // 课程名称
   desc?: string; //课程描述
