@@ -1,7 +1,9 @@
 import {
   ApartmentOutlined,
+  ClusterOutlined,
   HomeOutlined,
   PicRightOutlined,
+  ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 
@@ -23,6 +25,8 @@ export const ROUTE_KEY = {
   ORG: 'org',
   NO_ORG: 'noOrg',
   COURSE: 'course',
+  PRODUCT: 'product',
+  COMPANY: 'company',
   PAGE_404: 'p404',
 };
 
@@ -53,6 +57,16 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
     path: 'course',
     name: '课程管理',
     icon: <PicRightOutlined />,
+  },
+  [ROUTE_KEY.PRODUCT]: {
+    path: 'product',
+    name: '商品管理',
+    icon: <ShoppingCartOutlined />,
+  },
+  [ROUTE_KEY.COMPANY]: {
+    path: 'company',
+    name: '公司管理',
+    icon: <ClusterOutlined />,
   },
   [ROUTE_KEY.PAGE_404]: {
     path: '*',

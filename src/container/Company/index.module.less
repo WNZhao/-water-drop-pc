@@ -1,0 +1,34 @@
+.custom-icon {
+  width: 26px;
+  height: 26px;
+  margin-right: 8px;
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+.node-text-wrap {
+  display: inline-flex;
+  align-items: center;
+  // padding-left: 30px;
+  .title {
+    font-size: 18px;
+  }
+  :global .action-wrap {
+    visibility: hidden;
+    padding-left: 15px;
+    // border: 1px solid #9a1313;
+    button {
+      outline: none;
+    }
+  }
+  &:hover {
+    :global .action-wrap {
+      visibility: visible;
+    }
+  }
+}
+
+:global {
+  .ant-tree-title {
+  }
+}
