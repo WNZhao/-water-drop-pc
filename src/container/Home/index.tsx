@@ -11,12 +11,12 @@ import { ROUTE_KEY } from '@/routes/menu';
 const Home = () => {
   const [state, setState] = useState();
   const { store } = useUserContenxt();
-  console.log('store', store);
   useEffect(() => {
     state;
     setState;
   }, []);
   const { go } = useGoto();
+  console.log('home======');
   return (
     <div className={style.container}>
       {store.currentOrg}home

@@ -18,6 +18,7 @@ import OrderTime from './compoents/OrderTime';
  *
  */
 const Product = () => {
+  console.log('product');
   const [curId, setCurId] = useState('');
   const actionRef = useRef<ActionType>();
   const { refetch } = useCourses();

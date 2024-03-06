@@ -10,6 +10,7 @@ export interface IUser {
   account: string,
   avatar: string,
   currentOrg?: string,
+  orgId?: string,
   refetchHandler?: () => void
 }
 
@@ -81,3 +82,38 @@ export interface ICourse {
 export type TBaseCourse = Partial<ICourse>;
 export type TCoursesQuery = { [key: string]: { __typename?: 'Query', data: ICourse[], page: IPage } };
 export type TCourseQuery = { [key: string]: { __typename?: 'Query', data: ICourse } };
+
+
+// ===================部门树相关接口====================================
+export interface PageInput {
+  pageNum: number;
+  pageSize?: number;
+  total?: number;
+}
+export interface DepartmentsTree {
+  id: string;
+  name: string;
+  description: string;
+  depth: number;
+  key?: string;
+  label?: string;
+  parentId?: string;
+  isLeaf?: boolean;
+  children?: DepartmentsTree[];
+}
+
+export interface IDepartments {
+  id?: string; //部门ID
+  name: string; //部门名称
+  path?: string; //路径
+  depth?: number; //深度
+  description: string; //部门描述
+  parentId: string; //父ID
+  biz_id: string; //业务ID
+  isLeaf: boolean; //是否是叶子节点
+  relateBizIds: string; //关联业务ID
+}
+
+export type TBaseDepartments = Partial<IDepartments>;
+export type TDepartmentssQuery = { [key: string]: { __typename?: 'Query', data: IDepartments[], page: IPage, code?: number } };
+export type TDepartmentsQuery = { [key: string]: { __typename?: 'Query', data: IDepartments, code?: number } };

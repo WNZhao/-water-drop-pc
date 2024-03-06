@@ -8,31 +8,36 @@ import UserInfo from '@/components/Userinfo';
 import Layout from '@/components/Layout/index.tsx';
 import Login from '@/container/Login/index.tsx';
 import { ROUTE_COMPONENT } from './routes';
+import { ConfigProvider } from 'antd';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
-  <ApolloProvider client={client}>
-    <BrowserRouter>
-      <UserInfo>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          // 嵌套的路由
-          <Route path="/" element={<Layout />}>
-            {routes.map((item) => {
-              const Component = ROUTE_COMPONENT[item.key];
-              return (
-                <Route
-                  path={item.path}
-                  key={item.path}
-                  element={<Component />}
-                />
-              );
-            })}
-          </Route>
-          {/* 兜底 */}
-          {/* <Route path="*" element={<Page404 />} /> */}
-        </Routes>
-      </UserInfo>
-    </BrowserRouter>
-  </ApolloProvider>
+  <ConfigProvider>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <UserInfo>
+          {/* <ConfigProvider> */}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            // 嵌套的路由
+            <Route path="/" element={<Layout />}>
+              {routes.map((item) => {
+                const Component = ROUTE_COMPONENT[item.key];
+                return (
+                  <Route
+                    path={item.path}
+                    key={item.path}
+                    element={<Component />}
+                  />
+                );
+              })}
+            </Route>
+            {/* 兜底 */}
+            {/* <Route path="*" element={<Page404 />} /> */}
+          </Routes>
+          {/* </ConfigProvider> */}
+        </UserInfo>
+      </BrowserRouter>
+    </ApolloProvider>
+  </ConfigProvider>
 );

@@ -44,7 +44,7 @@ export const useGoto = () => {
 // 根据url获取页面信息
 export const useMatchedRoute = () => {
   const r = useLocation()
-  console.log('routes', routes);
+  // console.log('routes', routes);
   const route = useMemo(() => routes.find((item) => matchPath(`/${item.path}`, r.pathname)), [r.pathname])
 
   return route
@@ -53,7 +53,6 @@ export const useMatchedRoute = () => {
 // 是否是org router
 export const useIsOrgRoute = () => {
   const curRoute = useMatchedRoute()
-  console.log('curRoute', curRoute);
   if (curRoute?.path === ROUTE_CONFIG[ROUTE_KEY.ORG].path) {
     return true
   }

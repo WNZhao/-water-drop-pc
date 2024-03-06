@@ -19,7 +19,7 @@ export const useGetUser = () => {
     onCompleted: (data) => {
       if (data.getUserInfo) {
         const { id, name, tel, desc, avatar } = data.getUserInfo;
-        setStore({ id, name, tel, desc, avatar, refetchHandler: refetch });
+        setStore({ id, name, tel, desc, avatar, refetchHandler: refetch, orgId: 'bz_00001' });
         // 登录成功的话
         if (location.pathname.startsWith('/login')) {
           nav(`/`);

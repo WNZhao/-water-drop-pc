@@ -8,6 +8,7 @@
 
 .node-text-wrap {
   display: inline-flex;
+  flex-flow: row nowrap;
   align-items: center;
   // padding-left: 30px;
   .title {
@@ -28,7 +29,28 @@
   }
 }
 
-:global {
-  .ant-tree-title {
+:global .ant-tree-treenode-selected {
+  .action-wrap {
+    visibility: visible;
+  }
+}
+
+:global .dept-manage-tree {
+  .ant-tree-switcher {
+    align-self: center;
+  }
+  .ant-tree-draggable-icon {
+    align-self: center;
+  }
+  .ant-tree-node-content-wrapper {
+    // display: inline-flex;
+    margin-top: 4px;
+    align-items: center;
+    .ant-tree-iconEle {
+      padding: 0;
+      margin: 0;
+      padding-top: 2px;
+      // vertical-align: middle;
+    }
   }
 }
