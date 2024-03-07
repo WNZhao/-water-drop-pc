@@ -121,3 +121,14 @@ export const DEPTS_MOVE = gql`
     }
   }
 `
+
+// 批量更新部门和人员顺序
+export const UPDATE_DEPTS_SORT = gql`
+  mutation updateDepartmentsSort4Org($ids: [String!]!,$values: [Int!]!){
+    updateDepartmentsSort4Org(ids:$ids,values:$values){
+      code
+      message
+      data
+    }
+  }
+`

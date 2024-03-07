@@ -99,6 +99,8 @@ export interface DepartmentsTree {
   label?: string;
   parentId?: string;
   isLeaf?: boolean;
+  relateBizIds?: string;
+  sort?: number;
   children?: DepartmentsTree[];
 }
 
@@ -112,6 +114,7 @@ export interface IDepartments {
   biz_id: string; //业务ID
   isLeaf: boolean; //是否是叶子节点
   relateBizIds: string; //关联业务ID
+  sort?: number;
 }
 
 export type TBaseDepartments = Partial<IDepartments>;

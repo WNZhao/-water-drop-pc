@@ -54,3 +54,44 @@
     }
   }
 }
+
+// ========================new tree style ========================
+:global .draggable-tree-4depts {
+  .ant-tree-treenode {
+    .ant-tree-node-content-wrapper {
+      display: inline-flex;
+      align-items: center;
+      // border: 1px solid red;
+      &.ant-tree-node-selected {
+        .show-in-selected {
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+.treeNodeIcon {
+  margin-right: 10px;
+  font-size: 20px;
+  // vertical-align: 2ex;
+  align-self: center;
+}
+.titleActionWapper {
+  display: inline-flex;
+  align-items: center;
+  .title {
+    font-size: 16px;
+  }
+  .action-wrap {
+    visibility: hidden;
+    padding-left: 15px;
+    button {
+      outline: none;
+    }
+  }
+  &:hover {
+    .action-wrap {
+      visibility: visible;
+    }
+  }
+}

@@ -1,8 +1,8 @@
 import { useUserContenxt } from '@/hooks/userHooks';
 import { useCreateDept, useDeptInfo, useUpdateDept } from '@/services/dept';
 import { IDepartments } from '@/utils/types';
-import { Button, Drawer, Form, Input, Space, message } from 'antd';
-
+import { Button, Drawer, Form, Input, Space } from 'antd';
+import useAntdMessage from '@/components/AntdMessage';
 import { useEffect, useState } from 'react';
 
 interface IProps {
@@ -35,7 +35,7 @@ const CompanyInfoEdit: React.FC<IProps> = ({
   const { createDept } = useCreateDept();
   const { updateDept } = useUpdateDept();
   const { store } = useUserContenxt();
-
+  const { success, error } = useAntdMessage();
   const { refetch: refetchDeptInfo } = useDeptInfo();
 
   console.log('pId', pId);
@@ -87,12 +87,12 @@ const CompanyInfoEdit: React.FC<IProps> = ({
         }
 
         if (res) {
-          message.success('保存成功');
+          success('保存成功');
           form.resetFields();
           setSaveLoading(false);
           onClose(true);
         } else {
-          message.error('保存失败');
+          error('保存失败');
         }
       }
     } catch (error) {

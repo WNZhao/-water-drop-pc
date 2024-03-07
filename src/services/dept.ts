@@ -1,4 +1,4 @@
-import { CREATE_DEPTS, DELETE_DEPTS_BYID, DEPTS_MOVE, GET_DEPTS_INFO, GET_DEPTS_ROOT_BY_ORG, GET_DEPTS_TREE, GET_FLAT_DEPTS, UPDATE_DEPTS_4ORG } from "@/graphql/dept";
+import { CREATE_DEPTS, DELETE_DEPTS_BYID, DEPTS_MOVE, GET_DEPTS_INFO, GET_DEPTS_ROOT_BY_ORG, GET_DEPTS_TREE, GET_FLAT_DEPTS, UPDATE_DEPTS_4ORG, UPDATE_DEPTS_SORT } from "@/graphql/dept";
 import { IDepartments, PageInput, TDepartmentsQuery } from "@/utils/types";
 import { useMutation, useQuery } from "@apollo/client";
 
@@ -178,4 +178,21 @@ export const useMoveDepts = () => {
     }
   }
   return { loading, moveDepts: moveDeptsHandler };
+}
+
+export const useSortDepts = () => {
+  const [sortDepts, { loading }] = useMutation<TDepartmentsQuery>(UPDATE_DEPTS_SORT);
+  const sortDeptsHandler = async (params: any) => {
+    const { variables: { ids, values } } = params;
+    const res = await sortDepts({
+      variables: {
+        ids,
+        values,
+      },
+    });
+    if (res.data?.updateDepartmentsSort4Org.code === 200) {
+      return res.data.updateDepartmentsSort4Org.data;
+    }
+  }
+  return { loading, sortDepts: sortDeptsHandler };
 }
